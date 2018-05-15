@@ -11,10 +11,10 @@ To switch to the Chrome brower  or Emacs for examples, run
 
 ``` 
 python window_switch.py chrome
-```
+```bash
 
 ``` 
 python window_switch.py emacs
-```
+```bash
 
 You can find hot key shortcuts to these commands (Gnome for example), so Ctl-Alt-G will switch to Chrome.
