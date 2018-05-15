@@ -1,5 +1,7 @@
-For Linux and other X Window System based desktop OS, this Python script allows you to switch any given window through a keyboard shortcut, which is in most cases fasters than mouse clicking or Alt-Tab.
 
+For Linux and other X Window System based desktop OS, this Python script allows you to switch any given window through a keyboard shortcut, which is in most cases faster than mouse clicking or Alt-Tab.
+
+This tool depends on the xdotool utility from X Windows (apt install xdotool for Debian etc).
 
 ### INSTALL:
 
@@ -19,4 +21,4 @@ or
 python window_switch.py emacs
 ```
 
-You can find hot key shortcuts to these commands (Gnome for example), so Ctl-Alt-G will switch to Chrome.
+You can bind hot key shortcuts to these commands (in Gnome for example), so Ctl-Alt-G will switch to Chrome.
