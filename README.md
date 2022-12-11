@@ -1,5 +1,5 @@
 
-For Linux and other X Window System based desktop OS, this Python script allows you to switch any given window through a keyboard shortcut, which is in most cases faster than mouse clicking or Alt-Tab.
+For Linux and other X Window System based desktop OS, this Python script allows you to switch to any given window through a keyboard shortcut, which is in most cases faster than mouse clicking or Alt-Tab.
 
 This tool depends on the xdotool utility from X Windows (apt install xdotool for Debian etc).
 
