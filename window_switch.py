@@ -10,7 +10,7 @@ import commands
 program_name = sys.argv[1] # the program to be focused
 
 # get all windows matching the arg
-cmd = 'xdotool search ' + program_name
+cmd = 'xdotool search --onlyvisible ' + program_name
 # print cmd
 wins = list(sorted([x.strip() for x in commands.getoutput(cmd).split("\n") if x !='']))
 
