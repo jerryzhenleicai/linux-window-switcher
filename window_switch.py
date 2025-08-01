@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import os
 import sys
@@ -16,6 +16,7 @@ wins = list(sorted([x.strip() for x in commands.getoutput(cmd).split("\n") if x 
 
 wins = filter(lambda x : not 'Defaulting to search' in x , wins)
 
+print("Matching wins" , wins)
 
 if len(wins) > 0:
     # at least one candidate found , we need to check if the active window is among the candidates (for cycling)
@@ -23,7 +24,7 @@ if len(wins) > 0:
 
     # Get the id of the active window
     active_window = commands.getoutput('xdotool getactivewindow')
-    #print 'active', active_window
+    print 'active', active_window
 
     next_window = -1
     if active_window not in wins:
@@ -36,12 +37,14 @@ if len(wins) > 0:
         next_window = (wins.index(active_window)+1) % len(wins)
 
 
-    # print 'next ', next_window
+    print 'next ', next_window
     # tell wmcontrol to display the next_window
     curr_window = None
     while True:
+        print("Showing ", wins[next_window])
         os.system('xdotool windowactivate %s' % (wins[next_window],) )
         curr_window = commands.getoutput('xdotool getactivewindow')
+        print("Curr window" , curr_window)
         if curr_window == wins[next_window]:
             break
 
