@@ -3,9 +3,11 @@
 import os
 import sys
 
-# Copyright 2018 Zhenlei Cai (zcai@gaocan.com) 
+# Copyright 2018 Zhenlei Cai (zcai@gaocan.com)
 # Licensed under the GNU General Public License v3
 import subprocess
+
+of = open("/home/zcai/focus.log", "a")
 
 # Execute a command and capture its output
 def run_get_output(cmd):
@@ -29,7 +31,7 @@ if len(wins) > 0:
 
     # Get the id of the active window
     active_window = run_get_output('xdotool getactivewindow')
-    print('active', active_window)
+    of.write(f 'active {active_window} \n')
 
     desired_window = -1
     if active_window not in wins:
@@ -42,11 +44,12 @@ if len(wins) > 0:
         desired_window = (wins.index(active_window)+1) % len(wins)
 
 
-    print ('desired ', desired_window)
+    of.write (f'desired  {desired_window}')
     # tell wmcontrol to display the next_window
     curr_window = None
-    print("Showing ", wins[desired_window])
-    os.system('xdotool windowactivate %s' % (wins[desired_window],) )
+    des_hand = wins[desired_window]
+    of.write(f"Showing  desired win handle {des_hand}" )
+    os.system(f'xdotool windowactivate {des_hand}')
 
 else : # no windows open which fit the pattern of program_name
     # print 'open new prog'
