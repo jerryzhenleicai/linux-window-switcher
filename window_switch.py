@@ -43,21 +43,23 @@ if len(wins) > 0:
 
         # we are already showing one of the candidate windows
         # show the *next* candidate in the list (cycling)
-        desired_window = (1) % len(wins)
+        desired_window = (pos + 1) % len(wins)
 
 
     #of.write (f'desired  {desired_window}')
     # tell wmcontrol to display the next_window
     curr_window = None
     des_hand = wins[desired_window]
-    of.write(f"Showing  desired win handle {des_hand}" )
+    of.write(f"Showing  desired win handle {des_hand}\n" )
 
     next_window = desired_window
     while True:
         os.system('xdotool windowactivate %s' % (wins[next_window],) )
         curr_window = run_get_output('xdotool getactivewindow')
+        of.write(f"tried but curr  win handle {curr_window}" )
         if curr_window == des_hand:
             break
+        next_window += 1
 
     os.system(f'xdotool windowactivate {des_hand}')
 
