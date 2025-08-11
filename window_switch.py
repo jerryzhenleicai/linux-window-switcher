@@ -1,20 +1,25 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import os
 import sys
-import commands
 
 # Copyright 2018 Zhenlei Cai (zcai@gaocan.com) 
 # Licensed under the GNU General Public License v3
+import subprocess
+
+# Execute a command and capture its output
+def run_get_output(cmd):
+    result = subprocess.run(cmd.split(' '), capture_output=True, text=True, check=True)
+    return  result.stdout
 
 program_name = sys.argv[1] # the program to be focused
 
 # get all windows matching the arg
 cmd = 'xdotool search --onlyvisible ' + program_name
 # print cmd
-wins = list(sorted([x.strip() for x in commands.getoutput(cmd).split("\n") if x !='']))
+wins = list(sorted([x.strip() for x in run_get_output(cmd).split("\n") if x !='']))
 
-wins = filter(lambda x : not 'Defaulting to search' in x , wins)
+wins = list(filter(lambda x : not 'Defaulting to search' in x , wins))
 
 print("Matching wins" , wins)
 
@@ -23,32 +28,25 @@ if len(wins) > 0:
     #wins = wins[2:]
 
     # Get the id of the active window
-    active_window = commands.getoutput('xdotool getactivewindow')
-    print 'active', active_window
+    active_window = run_get_output('xdotool getactivewindow')
+    print('active', active_window)
 
-    next_window = -1
+    desired_window = -1
     if active_window not in wins:
         # if the active window is not among the candidate windows
         # ..just show the first candidate window
-        next_window = 0
+        desired_window = 0
     else:
         # we are already showing one of the candidate windows
         # show the *next* candidate in the list (cycling)
-        next_window = (wins.index(active_window)+1) % len(wins)
+        desired_window = (wins.index(active_window)+1) % len(wins)
 
 
-    print 'next ', next_window
+    print ('desired ', desired_window)
     # tell wmcontrol to display the next_window
     curr_window = None
-    while True:
-        print("Showing ", wins[next_window])
-        os.system('xdotool windowactivate %s' % (wins[next_window],) )
-        curr_window = commands.getoutput('xdotool getactivewindow')
-        print("Curr window" , curr_window)
-        if curr_window == wins[next_window]:
-            break
-
-        next_window = (next_window+1) % len(wins)
+    print("Showing ", wins[desired_window])
+    os.system('xdotool windowactivate %s' % (wins[desired_window],) )
 
 else : # no windows open which fit the pattern of program_name
     # print 'open new prog'
