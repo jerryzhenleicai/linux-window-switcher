@@ -23,7 +23,7 @@ wins = list(sorted([x.strip() for x in run_get_output(cmd).split("\n") if x !=''
 
 wins = list(filter(lambda x : not 'Defaulting to search' in x , wins))
 
-of.write(f"\nMatching wins {wins}\n")
+# of.write(f"\nMatching wins {wins}\n")
 
 if len(wins) > 0:
     # at least one candidate found , we need to check if the active window is among the candidates (for cycling)
@@ -50,13 +50,13 @@ if len(wins) > 0:
     # tell wmcontrol to display the next_window
     curr_window = None
     des_hand = wins[desired_window]
-    of.write(f"Showing  desired win handle {des_hand}\n" )
+#     of.write(f"Showing  desired win handle {des_hand}\n" )
 
     next_window = desired_window
     while True:
         os.system('xdotool windowactivate %s' % (wins[next_window],) )
         curr_window = run_get_output('xdotool getactivewindow')
-        of.write(f"tried but curr  win handle {curr_window}" )
+#        of.write(f"tried but curr  win handle {curr_window}" )
         if curr_window == des_hand:
             break
         next_window += 1
